@@ -178,9 +178,7 @@ class PipelineDefault:
         print(f"AUC-ROC CV:{df.loc[melhor, 'CV AUC Média']:.4f}")
         print(f"Desvio CV:{df.loc[melhor, 'CV Desvio']:.4f}")
         print(f"Score Final:{df.loc[melhor, 'Score_Final']:.4f}")
-        print(f"\nO AUC-ROC mede a capacidade do modelo de separar inadimplentes")
-        print(f"de adimplentes, independente do threshold. É a métrica padrão")
-        print(f"para modelos de crédito/risco em produção.")
+
         return melhor
 
     def matriz_confusao(self, nome_modelo: str) -> None:
@@ -271,13 +269,10 @@ class PipelineDefault:
         print(f"\n[Salvo] Modelos e estrutura salvos com prefixo '{prefixo}'")
 
 
-# MAIN
+# main
 
 if __name__ == '__main__':
-    print("=" * 70)
     print("Sistema de detecção de inadimplência")
-    print("=" * 70)
-
     pipeline = PipelineDefault(test_size=0.2, random_state=42)
 
     # 1. Carregar
@@ -348,8 +343,7 @@ if __name__ == '__main__':
     print(f"Nível de risco: {resultado['nivel_risco']}")
     print(f"\nDistribuição de Probabilidade")
     for classe, prob in resultado['distribuicao_proba'].items():
-        barra = '█' * int(prob * 40)
-        print(f"  {classe:35}: {prob:.4f}  {barra}")
+        print(f"{classe}: {prob:.4f}")
     print(f"\nScore de risco (inadimplência): {resultado['score_risco']:.4f}")
     print(f"{resultado['score_risco'] * 100:.1f}% de chance de dar default")
 
